@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Flex Design</title>
 </head>
@@ -59,10 +61,19 @@
             </div>
             <div class="secondbar">
                 <div class="firstnav">
-                    <a href="#">Dashboard</a>
-                    <a href="#">Tasks</a>
-                    <a href="#">Members</a>
-                    <a href="#">Reports</a>
+                    <div class="tab">
+                        <button class="tablinks" style=" display: inline-block;
+                                                            padding: 10px;
+                                                            text-decoration: none;
+                                                            color: black;
+                                                            font-weight: 600;
+                                                            background-color: white;
+                                                            font-size: 0.9em;
+                        border: rgb(253, 253, 253);" id="defaultOpen" onclick="openCity(event, 'London')">Dashboard</button>
+                        <button class="tablinks" id="d1" onclick="openCity(event, 'Paris')">Tasks</button>
+                        <button class="tablinks" id="d1" onclick="openCity(event, 'Tokyo')">Members</button>
+                        <button class="tablinks" id="d1" onclick="openCity(event, 'London')">reports</button>
+                      </div>
                 </div>
                 <div class="secondnav">
                     <ul class="counts">
@@ -71,9 +82,25 @@
                         <li class="list">Average on desk <br> <br><h2>02:18:19</h2> </li>
                         
                     </ul>
-                        <li class="ri">Last 7 days <i class="fa fa-caret-down"></i></li>
+                        <li class="ri" style="padding-top: 20px;">Last 7 days <i class="fa fa-caret-down"></i></li>
                 </div>
-                <div class="thirdbar">
+                <div class="thirdnav">
+                    <div id="London" class="tabcontent">
+                        <canvas id="myChart" style="padding-top:90px; width:70%;max-width:700px"></canvas>
+                    </div>
+                    
+                    <div id="Paris" class="tabcontent">
+                        <canvas id="myChart2" style="padding-top:90px; width:70%;max-width:700px"></canvas>   
+                    </div>
+                    
+                    <div id="Tokyo" class="tabcontent">
+                        <canvas id="myChart3" style="padding-top:90px; width:70%;max-width:700px"></canvas>
+                    </div>
+                    <div id="Tokyo" class="tabcontent">
+                        <canvas id="myChart" style="padding-top:90px; width:70%;max-width:700px"></canvas>
+                    </div>
+                </div>
+                <div class="thirdbar" style="padding-top: 10px;">
                     <div class="details">
                         <div class="info">
                             <div class="name">Tasks</div>     
@@ -214,4 +241,100 @@
        
     </div>
 </body>
+<script>
+    var xValues = [50,60,70,80,90,100,110,120,130,140,150];
+var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+});
+new Chart("myChart2", {
+    type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  },
+});
+new Chart("myChart3",{
+    type: "pie",
+    data: {
+        datasets: [{
+            label: 'Colors',
+            data: [9, 8, 7, 6, 5, 4, 3, 2, 1],
+            backgroundColor: ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b", "#F012BE", "#3D9970", "#111111", "#AAAAAA"]
+        }],
+        labels: ['a','b','c','d','e','f','g','h','i']
+    },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  },
+});
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+});
+
+
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+  document.getElementById("defaultOpen").click();
+</script>
 </html>
